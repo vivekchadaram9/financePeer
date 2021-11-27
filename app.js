@@ -44,9 +44,7 @@ app.get("/users/", async (request, response) => {
 });
 
 app.post("/users/", async (request, response) => {
-  const usersList = request.body;
-  for (let i of usersList) {
-    const { userId, id, title, body } = i;
+    const { userId, id, title, body } = request.body;
     const postUserQuery = `
   INSERT INTO
     users (userId,id,title,body)
@@ -54,7 +52,6 @@ app.post("/users/", async (request, response) => {
     (${userId}, '${id}', '${title}', '${body}');`;
     await database.run(postUserQuery);
     response.send("User Successfully Added");
-  }
 });
 
 module.exports = app;
